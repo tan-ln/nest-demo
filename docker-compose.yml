@@ -1,0 +1,29 @@
+version: '3.8'
+
+services: 
+  app: 
+    build: . # 先找同级目录的 Dockerfile，构建一个镜像出来
+    ports: 
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+      - ./node_modules:/app/node_modules
+    depends_on: 
+      - db
+    environment: 
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=test
+  db: 
+    container_name: db
+    image: mysql
+    environment: 
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+    ports:
+      - 3306:3306
+    volumes:
+      - /Users/tang0/study/data/mysql:/var/lib/mysql
+
+
