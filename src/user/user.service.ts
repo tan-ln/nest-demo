@@ -21,14 +21,18 @@ export class UserService {
   }
 
   async findAll() {
+    console.log(process.env.NODE_ENV);
     return await this.userRepository.find();
   }
 
-  async findOne(id: any): Promise<User | undefined> {
+  async findOne(id: number): Promise<User | undefined> {
     return await this.userRepository.findOne({ where: { id } });
   }
 
-  async update(id, updateUserDto: UpdateUserDto): Promise<User | undefined> {
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<User | undefined> {
     const user = await this.userRepository.findOne({ where: { id } });
     return await this.userRepository.save({
       ...user,
@@ -39,7 +43,7 @@ export class UserService {
     });
   }
 
-  async remove(id): Promise<User | undefined> {
+  async remove(id: number): Promise<User | undefined> {
     const user = await this.userRepository.findOne({ where: { id } });
     return this.userRepository.remove(user);
   }

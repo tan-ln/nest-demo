@@ -15,6 +15,25 @@ services:
       - DB_USER=root
       - DB_PASSWORD=root
       - DB_DATABASE=test
+      - NODE_ENV=dev
+
+  app-prod:
+    build: 
+      context: .
+      dockerfile: dockerfile.prod
+    ports: 
+      - "80:7890"
+    volumes:
+      - ./src:/app/src
+      - ./node_modules:/app/node_modules
+    depends_on: 
+      - db
+    environment: 
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=test
+      - NODE_ENV=prodction
   db: 
     container_name: db
     image: mysql

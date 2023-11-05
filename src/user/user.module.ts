@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 
 @Module({
+  // 动态导入，不需要创建两个 数据库连接，只作用于 User Module
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
   providers: [

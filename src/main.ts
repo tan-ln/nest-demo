@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { ResponseTransformInterceptor } from './common/response';
-import { HttpExceptionFilter } from './common/filter';
+// import { HttpExceptionFilter } from './common/filter';
 
 async function bootstrap() {
   console.log(process.env.DB_HOST);
@@ -12,7 +12,8 @@ async function bootstrap() {
   });
 
   app.useGlobalInterceptors(new ResponseTransformInterceptor());
-  app.useGlobalFilters(new HttpExceptionFilter());
+  // app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(3000);
 }
